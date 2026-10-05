@@ -29,7 +29,72 @@ eye.addEventListener("click", () => {
         eye.src = "https://img.icons8.com/?size=100&id=85035&format=png&color=000000";       
     } 
 });
+/*
+function passwordStrength(password) {
+    let strength = {
+        length: password.length >= 8,
+        uppercase: /[A-Z]/.test(password),
+        lowercase: /[a-z]/.test(password),
+        number: /[0-9]/.test(password),
+        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    }
 
+    //Count how many requirements are met
+    let score = Object.values(strength).filter(value => value).length;
+    
+    //Return strength level based on score
+    if (score === 5) {
+        return "Strong";
+    }
+    else if (score >= 3) {
+        return "Medium";
+    }
+    else {
+        return "Weak";
+    }
+}
+
+// password strength check function
+function checkPasswordStrength(passwordInput, passwordDiv){
+    //create the strength box
+    const strengthBox = document.createElement("div");
+    strengthBox.id = "strengthBox";
+    strengthBox.style.display = "none"; // Initially hidden
+    //create the strength text
+    const strengthText = document.createElement("span");
+    strengthText.id = "strengthText";
+    strengthBox.appendChild(strengthText);
+    passwordDiv.appendChild(strengthBox);
+
+    //Check password as the user types
+    passwordInput.addEventListener("input", () => {
+        const pwd = passwordInput.value;
+
+        //If the password field is empty, hide the strength box
+        if (pwd.length === 0) {
+            strengthBox.style.display = "none";
+            return;
+        }
+
+        //Show the strength box
+        strengthBox.style.display = "block";
+
+        //Get the strength result
+        const result = passwordStrength(pwd);
+        strengthText.textContent = "Password Strength: " + result;
+
+        //Color coding the strength text
+        if(result === "Weak"){
+            strengthText.style.color = "red";
+        } else if(result === "Medium"){
+            strengthText.style.color = "orange";
+        } else {
+            strengthText.style.color = "green";
+        }
+    });
+}
+
+*/
 //====== sign in form====
 function SignInForm() {
     Login.innerHTML = ""; //===Clear the page===
@@ -47,6 +112,7 @@ function SignInForm() {
     userInput.type = "text";
     userInput.id = "username";
     userInput.name = "username";
+    userInput.required = true;
     userDiv.appendChild(userLabel);
     userDiv.appendChild(userInput);
     
@@ -54,10 +120,12 @@ function SignInForm() {
     passDiv.appendChild(passLabel);
     passDiv.appendChild(passInput);
     passDiv.appendChild(eye);
+    //passDiv.passwordStrengthCheck(passInput, passDiv); // Add password strength check to the sign-in form
 
     const submitBtn = document.createElement("button");
     submitBtn.type = "submit";
     submitBtn.textContent = "Sign In";
+    
     
 
 //switch to sign up form
@@ -70,6 +138,7 @@ function SignInForm() {
     switchLink.textContent = "Sign Up";
     
     switchLink.addEventListener("click", ()=> {
+        event.preventDefault(); // Prevent default link behavior
         SignUpForm();
     });
 
@@ -160,12 +229,14 @@ function SignUpForm() {
     passDiv.appendChild(passLabel);
     passDiv.appendChild(passInput);
     passDiv.appendChild(eye);
+    //passDiv.passwordStrengthCheck(passInput, passDiv); // Add password strength check to the sign-up form
 
     // ===== Submit Button =====
     const SubmitBtn = document.createElement("button");
     SubmitBtn.type = "submit";
     SubmitBtn.value = "Sign Up";
     SubmitBtn.textContent = "Sign Up";
+    
 
     // ===== Back to Sign In Link =====
     const switchDiv = document.createElement("div");
