@@ -1,16 +1,16 @@
 body{
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f5d3ee;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
     padding: 0;
-    border: 1px solid #ccc;
+    border: 1px solid #450f3e;
 }
 #Login form{
-    background-color: aquamarine;
+    background-color: rgb(213, 170, 211);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 20px 20px 20px rgba(79, 76, 230, 0.1);
