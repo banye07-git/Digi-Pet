@@ -27,8 +27,12 @@ fontstylecontrol.innerHTML = `
     <option value="Verdana">Verdana</option>
     <option value="Times New Roman">Times New Roman</option>
 `;
+
+
+
 fontstylecontrol.addEventListener("change", () => {
-    journalInput.style.fontFamily = fontstylecontrol.value;
+    document.execCommand("fontName", false, fontstylecontrol.value);
+    // journalInput.style.fontFamily = fontstylecontrol.value; 
 });
 
 // create a select element for font weight control
@@ -40,21 +44,24 @@ fontweightcontrol.innerHTML = `
     <option value="lighter">Lighter</option>
 `;
 fontweightcontrol.addEventListener("change", () => {
-    journalInput.style.fontWeight = fontweightcontrol.value;
+    document.execCommand("bold", false, fontweightcontrol.value);
+    // journalInput.style.fontWeight = fontweightcontrol.value;
 });
 
 // create a button to underline the journal entry text
 const underlineControl = document.createElement("button");
 underlineControl.innerHTML = "U";
 underlineControl.addEventListener("click", () => {
-    journalInput.style.textDecoration = journalInput.style.textDecoration === "underline" ? "none" : "underline";
+    document.execCommand("underline", false, null);
+    // journalInput.style.textDecoration = journalInput.style.textDecoration === "underline" ? "none" : "underline";
 });
 
 // change the font color of the journal entry text
 const fontcolorControl = document.createElement("input");
 fontcolorControl.type = "color";
 fontcolorControl.addEventListener("change", () => {
-    journalInput.style.color = fontcolorControl.value;
+    document.execCommand("foreColor", false, fontcolorControl.value);
+    // journalInput.style.color = fontcolorControl.value;
 });
 
 //Appending all font style elements to the font control div
@@ -63,10 +70,15 @@ fontcontrol.appendChild(fontweightcontrol);
 fontcontrol.appendChild(underlineControl);
 fontcontrol.appendChild(fontcolorControl);
 
-const journalInput = document.createElement("textarea");
+
+//changed the textarea to a contenteditable div in order to allow for styling of the text within the journal entry. 
+// This allows for more flexibility in formatting and styling the text, such as changing the font, weight, color, 
+// and adding underline. The contenteditable attribute makes the div editable by the user, similar to a textarea, 
+// but with more styling options.
+const journalInput = document.createElement("contenteditable");
 journalInput.id = "journal";
-journalInput.name = "journal";
-journalInput.placeholder = "Write your journal entry here...";
+journalInput.contentEditable = "true";
+
 
 
 const journalSubmit = document.createElement("button");
