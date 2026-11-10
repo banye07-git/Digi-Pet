@@ -1,12 +1,73 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Journal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal | Digi-Pet</title>
     <link rel="stylesheet" href="journal_style.css">
-    
+    <script src="journal.js" defer></script>
 </head>
 <body>
-    <div id="Note"></div>
-    <script src="journal.js"></script>
+    <main class="journal">
+        <header class="journal-header">
+            <p class="eyebrow">A little space for you</p>
+            <h1>Journal</h1>
+            <p class="journal-date" id="journal-date"></p>
+        </header>
 
+        <section class="entry-card" aria-labelledby="entry-title">
+            <h2 id="entry-title">Today's entry</h2>
+            <div class="toolbar" role="toolbar" aria-label="Text formatting">
+                <label class="sr-only" for="font-family">Font family</label>
+                <select id="font-family" aria-label="Font family">
+                    <option value="Arial">Arial</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Courier New">Courier New</option>
+                </select>
+
+                <label class="sr-only" for="font-size">Font size</label>
+                <select id="font-size" aria-label="Font size">
+                    <option value="3">Normal</option>
+                    <option value="2">Small</option>
+                    <option value="4">Large</option>
+                    <option value="5">Extra large</option>
+                </select>
+
+                <span class="toolbar-divider" aria-hidden="true"></span>
+                <button class="format-button" type="button" data-command="bold" aria-label="Bold" title="Bold"><strong>B</strong></button>
+                <button class="format-button italic-button" type="button" data-command="italic" aria-label="Italic" title="Italic">I</button>
+                <button class="format-button underline-button" type="button" data-command="underline" aria-label="Underline" title="Underline">U</button>
+
+                <label class="color-control" title="Text color">
+                    <span aria-hidden="true">A</span>
+                    <input id="font-color" type="color" aria-label="Text color" value="#463c5b">
+                </label>
+                <span class="toolbar-divider" aria-hidden="true"></span>
+                <button class="image-button" id="add-image" type="button" aria-label="Add an image">
+                    <span aria-hidden="true">＋</span> Add image
+                </button>
+                <input id="image-input" type="file" accept="image/*" multiple hidden>
+            </div>
+
+            <div
+                id="journal-editor"
+                class="journal-editor"
+                contenteditable="true"
+                role="textbox"
+                aria-label="Journal entry"
+                aria-multiline="true"
+                data-placeholder="Write what's on your mind... You can also paste or drop images here."
+                spellcheck="true"
+            ></div>
+            <p class="editor-hint">Tip: paste or drag an image into your entry, or use Add image.</p>
+
+            <footer class="entry-footer">
+                <p id="save-status" class="save-status" role="status" aria-live="polite"></p>
+                <button id="save-entry" class="save-button" type="button">Save entry</button>
+            </footer>
+        </section>
+    </main>
 </body>
+</html>
