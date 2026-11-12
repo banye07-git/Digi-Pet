@@ -60,6 +60,7 @@ if (isset($_GET['action'])) {
             sendJson(['content' => $entry ? $entry['content'] : '']);
         }
 
+        // Save or update the entry for this session, rejecting overly large entries.
         if ($action === 'save' && $_SERVER['REQUEST_METHOD'] === 'POST') {
             $request = json_decode(file_get_contents('php://input'), true);
             if (!is_array($request) || !isset($request['content']) || !is_string($request['content'])) {
@@ -69,11 +70,14 @@ if (isset($_GET['action'])) {
                 sendJson(['error' => 'The journal entry is too large to save.'], 413);
             }
 
+            //insert a new row in the database table or update the existing row for this session ID.
             $statement = $database->prepare(
                 'INSERT INTO journal_entries (session_id, content)
                  VALUES (:session_id, :content)
                  ON DUPLICATE KEY UPDATE content = VALUES(content), updated_at = CURRENT_TIMESTAMP'
             );
+
+            // Execute the statement with the session ID and content from the request.
             $statement->execute([
                 'session_id' => $ownerId,
                 'content' => $request['content'],
