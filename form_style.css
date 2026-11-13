@@ -1,77 +1,117 @@
-body{
-    font-family: Arial, sans-serif;
-    background-color: #f5d3ee;
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #450f3e;
+    font-family: Arial, sans-serif;
+    color: #35152f;
+    background: linear-gradient(135deg, #f8e5f3, #f5d3ee);
 }
-#Login form{
-    background-color: rgb(213, 170, 211);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 20px 20px 20px rgba(79, 76, 230, 0.1);
+
+#Login {
+    width: 100%;
+    max-width: 420px;
+}
+
+#Login form {
+    padding: 36px;
+    border: 1px solid #efd0e8;
+    border-radius: 16px;
+    background-color: #fffaff;
+    box-shadow: 0 16px 40px rgba(69, 15, 62, 0.12);
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.intro {
+    margin: 10px 0 28px;
+    color: #6b5266;
+    text-align: center;
+}
+
+.form-message {
+    margin: -12px 0 20px;
+    padding: 10px 12px;
+    border-radius: 6px;
+}
+
+.form-message.error {
+    color: #842029;
+    background-color: #f8d7da;
+}
+
+.form-message.success {
+    color: #0f5132;
+    background-color: #d1e7dd;
 }
 
 label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
     font-weight: bold;
 }
 
 input {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    font-size: 14px;
-} 
+    margin-bottom: 18px;
+    padding: 12px;
+    border: 1px solid #cdb8c8;
+    border-radius: 6px;
+    font: inherit;
+}
+/* Focus highlight the field when selected so its easy to see */
+input:focus {
+    border-color: #8d3c7f;
+    outline: 3px solid rgba(141, 60, 127, 0.18);
+}
 
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #007BFF;
+    margin-top: 4px;
+    padding: 12px;
+    border: 0;
+    border-radius: 6px;
     color: white;
-    border: none;
-    border-radius: 4px;
+    background-color: #803373;
+    font: inherit;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #64245a;
 }
 
-.switchLink{
+.switch-link {
+    margin: 20px 0 0;
+    color: #6b5266;
     text-align: center;
-    font-family: 'Times New Roman', Times, serif;
-    font-style:italic;
-    font-weight: bold;
-    margin-top: 10px;
-
 }
 
-.passwordbox{
-    position: relative;
-}
-.toggle-eye{
-    position:absolute;
-    right: 10px;
-    top: 45%;
-    width: 20px;
-    cursor: pointer;
-    alt: show;
-}
-/*
-#strengthBox{
-    margin-top: 5px;
-    padding: 8px;
-    border-radius: 5px;
+.switch-link a {
+    color: #803373;
     font-weight: bold;
-    width: 150px;
-}*/
+}
+
+/* Focus on button when selected with keyboard */
+button:focus-visible {
+    outline: 3px solid #35152f;
+    outline-offset: 3px;
+}
+
+/* Make the page responsive */
+@media (max-width: 480px) {
+    #Login form {
+        padding: 28px 22px;
+    }
+}

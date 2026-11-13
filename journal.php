@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/database.php';
 
 // Return JSON responses for editor requests without rendering the journal page.
 function sendJson($data, $statusCode = 200)
@@ -10,33 +11,23 @@ function sendJson($data, $statusCode = 200)
     exit;
 }
 
+if (!isset($_SESSION['user_id'])) {
+    if (isset($_GET['action'])) {
+        sendJson(['error' => 'Sign in is required.'], 401);
+    }
+
+    header('Location: sign_in.php');
+    exit;
+}
+
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
     if (!in_array($action, ['load', 'save'], true)) {
         sendJson(['error' => 'Unknown journal action.'], 404);
     }
 
-    // Keep credentials outside the source code; the database name is always "block".
-    $dbHost = getenv('DB_HOST');
-    $dbUser = getenv('DB_USER');
-    $dbPassword = getenv('DB_PASS');
-    $dbName = getenv('DB_NAME');
-
-    if ($dbUser === false || $dbUser === '') {
-        error_log('Digi-Pet journal database is not configured: DB_USER is missing.');
-        sendJson(['error' => 'Journal database is not configured on the server.'], 500);
-    }
-
     try {
-        $database = new PDO(
-            "mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4",
-            $dbUser,
-            $dbPassword === false ? '' : $dbPassword,
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]
-        );
+        $database = connectDatabase();
 
         // Create the session-scoped entry table the first time the endpoint is used.
         $database->exec(
@@ -86,6 +77,8 @@ if (isset($_GET['action'])) {
         }
 
         sendJson(['error' => 'Method not allowed.'], 405);
+    } catch (RuntimeException $error) {
+        sendJson(['error' => 'Journal database is not available.'], 500);
     } catch (PDOException $error) {
         error_log('Digi-Pet journal database error: ' . $error->getMessage());
         sendJson(['error' => 'Could not connect to or save in the journal database.'], 500);
