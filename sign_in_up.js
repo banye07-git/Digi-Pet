@@ -15,18 +15,18 @@ passInput.required = true;
 
 const eye = document.createElement("img");
 eye.className = "toggle-eye";
-eye.src = "https://img.icons8.com/?size=100&id=85035&format=png&color=000000";
+//eye.src = "https://img.icons8.com/?size=100&id=85035&format=png&color=000000";
 eye.alt = "Show";
 eye.title = "Show or hide password";
 
 eye.addEventListener("click", () => {
     if(passInput.type === "password"){
         passInput.type = "text";
-        eye.src = "https://img.icons8.com/?size=100&id=85028&format=png&color=000000";
+        //eye.src = "https://img.icons8.com/?size=100&id=85028&format=png&color=000000";
                
     }else{
         passInput.type = "password";
-        eye.src = "https://img.icons8.com/?size=100&id=85035&format=png&color=000000";       
+        //eye.src = "https://img.icons8.com/?size=100&id=85035&format=png&color=000000";       
     } 
 });
 /*

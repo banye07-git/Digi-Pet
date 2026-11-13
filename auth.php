@@ -1,5 +1,5 @@
 <?php
-
+/*
 require_once __DIR__ . '/database.php';
 
 function getUsersDatabase(): PDO
@@ -41,3 +41,4 @@ function isValidAuthCsrfToken($token): bool
         && isset($_SESSION['auth_csrf_token'])
         && hash_equals($_SESSION['auth_csrf_token'], $token);
 }
+*/

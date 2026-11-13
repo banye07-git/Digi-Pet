@@ -3,10 +3,11 @@ school project
 
 ## MySQL setup
 
-The sign-up page creates the `users` table automatically. It stores password
-hashes, not plain-text passwords. The journal page also creates its
-`journal_entries` table automatically. The configured MySQL account needs
-permission to create tables and to select, insert, and update rows.
+The journal page creates its `journal_entries` table automatically. The
+configured MySQL account needs permission to create tables and to select,
+insert, and update rows. Sign-in and sign-up authentication are temporarily
+commented out; those pages are currently display-only and do not submit
+credentials.
 
 Create the database if it does not exist:
 
@@ -25,6 +26,7 @@ $env:DIGIPET_DB_NAME = "block"
 php -S localhost:8000
 ```
 
-Open `http://localhost:8000/sign_in.php` to sign in or create an account.
-Successful sign-in opens the journal. Do not put database credentials in the
-source code or commit them to the repository.
+Open `http://localhost:8000/sign_in.php` or `http://localhost:8000/signup.php`
+to view the sign-in and sign-up forms. The journal remains available at
+`http://localhost:8000/journal.php` and uses MySQL for entries. Do not put
+database credentials in the source code or commit them to the repository.

@@ -1,4 +1,4 @@
-<?php
+<?php /*
 session_start();
 require_once __DIR__ . '/auth.php';
 
@@ -63,7 +63,7 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         }
     }
 }
-?>
+*/ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,12 +74,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 </head>
 <body>
     <main id="Login">
-        <form method="post" action="">
+        <form onsubmit="return false;">
             <h1>Create an account</h1>
             <p class="intro">Sign up for your Digi-Pet account.</p>
-            <?php if ($errorMessage !== ''): ?>
-                <p class="form-message error" role="alert"><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
-            <?php endif; ?>
+            <p class="form-message info" role="status">Sign-up is temporarily disabled.</p>
 
             <div>
                 <label for="username">Username</label>
@@ -90,7 +88,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     minlength="3"
                     maxlength="50"
                     pattern="[A-Za-z0-9_.-]{3,50}"
-                    value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
                     autocomplete="username"
                     required
                 >
@@ -103,7 +100,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     id="email"
                     name="email"
                     maxlength="254"
-                    value="<?= htmlspecialchars($email, ENT_QUOTES, 'UTF-8') ?>"
                     autocomplete="email"
                     required
                 >
@@ -135,12 +131,12 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                 >
             </div>
 
-            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(getAuthCsrfToken(), ENT_QUOTES, 'UTF-8') ?>">
             <button type="submit">Sign Up</button>
             <p class="switch-link">Already have an account? <a href="sign_in.php">Sign in</a></p>
         </form>
     </main>
     <script>
+        <!-- The script checks that the password fields match before submission. -->
         const password = document.getElementById("password");
         const confirmPassword = document.getElementById("confirm-password");
 
@@ -155,6 +151,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         password.addEventListener("input", validatePasswordMatch);
         confirmPassword.addEventListener("input", validatePasswordMatch);
     </script>
-    <!-- The script checks that the password fields match before submission. -->
+    
 </body>
 </html>

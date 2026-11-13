@@ -11,6 +11,7 @@ function sendJson($data, $statusCode = 200)
     exit;
 }
 
+/*
 if (!isset($_SESSION['user_id'])) {
     if (isset($_GET['action'])) {
         sendJson(['error' => 'Sign in is required.'], 401);
@@ -19,6 +20,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: sign_in.php');
     exit;
 }
+*/
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];

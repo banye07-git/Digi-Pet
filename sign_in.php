@@ -1,4 +1,4 @@
-<?php
+<?php /*
 session_start();
 require_once __DIR__ . '/auth.php';
 
@@ -48,7 +48,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         }
     }
 }
-?>
+*/ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,15 +60,10 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 </head>
 <body>
     <main id="Login">
-        <form method="post" action="">
+        <form onsubmit="return false;">
             <h1>Welcome back</h1>
             <p class="intro">Sign in to your Digi-Pet account.</p>
-            <?php if ($successMessage !== ''): ?>
-                <p class="form-message success" role="status"><?= htmlspecialchars($successMessage, ENT_QUOTES, 'UTF-8') ?></p>
-            <?php endif; ?>
-            <?php if ($errorMessage !== ''): ?>
-                <p class="form-message error" role="alert"><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></p>
-            <?php endif; ?>
+            <p class="form-message info" role="status">Sign-in is temporarily disabled.</p>
 
             <div>
                 <label for="username">Username</label>
@@ -76,7 +72,6 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
                     id="username"
                     name="username"
                     maxlength="50"
-                    value="<?= htmlspecialchars($username, ENT_QUOTES, 'UTF-8') ?>"
                     autocomplete="username"
                     required
                 >
@@ -84,19 +79,50 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 
             <div>
                 <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    autocomplete="current-password"
-                    required
-                >
+                <div class="password-input">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                    <button
+                        class="password-toggle"
+                        id="password-toggle"
+                        type="button"
+                        aria-label="Show password"
+                        aria-controls="password"
+                        aria-pressed="false"
+                    >
+                        <img
+                            id="password-toggle-icon"
+                            src="https://img.icons8.com/?size=100&id=85035&format=png&color=000000"
+                            alt=""
+                        >
+                    </button>
+                </div>
             </div>
 
-            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(getAuthCsrfToken(), ENT_QUOTES, 'UTF-8') ?>">
             <button type="submit">Sign In</button>
             <p class="switch-link">Don't have an account? <a href="signup.php">Sign up</a></p>
         </form>
     </main>
+    <script>
+        <!-- JavaScript to toggle password visibility -->
+        const passwordInput = document.getElementById("password");
+        const passwordToggle = document.getElementById("password-toggle");
+        const passwordToggleIcon = document.getElementById("password-toggle-icon");
+
+        passwordToggle.addEventListener("click", () => {
+            const isVisible = passwordInput.type === "text";
+            passwordInput.type = isVisible ? "password" : "text";
+            passwordToggle.setAttribute("aria-label", isVisible ? "Show password" : "Hide password");
+            passwordToggle.setAttribute("aria-pressed", String(!isVisible));
+            passwordToggleIcon.src = isVisible
+                ? "https://img.icons8.com/?size=100&id=85035&format=png&color=000000"
+                : "https://img.icons8.com/?size=100&id=85028&format=png&color=000000";
+        });
+    </script>
 </body>
 </html>
